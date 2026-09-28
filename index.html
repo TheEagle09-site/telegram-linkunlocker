@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock Key</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111827;
+      font-family: Arial, sans-serif;
+    }
+
+    .unlock-btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .unlock-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 400px;
+      background: #1f2937;
+      color: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-sizing: border-box;
+    }
+
+    .modal-box h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .credential {
+      margin: 15px 0;
+    }
+
+    .credential label {
+      display: block;
+      margin-bottom: 7px;
+      color: #9ca3af;
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .value {
+      flex: 1;
+      padding: 12px;
+      background: #111827;
+      border-radius: 8px;
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 0 15px;
+      background: #10b981;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #374151;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="unlock-btn" onclick="openModal()">
+    🔐 Unlock Key
+  </button>
+
+  <div class="modal" id="keyModal">
+    <div class="modal-box">
+      <h2>🔑 Unlock Key</h2>
+
+      <div class="credential">
+        <label>Username</label>
+        <div class="copy-row">
+          <div class="value" id="username">AimAi-2_ZEPC5</div>
+          <button class="copy-btn" onclick="copyText('username')">Copy</button>
+        </div>
+      </div>
+
+      <div class="credential">
+        <label>Password</label>
+        <div class="copy-row">
+          <div class="value" id="password">Ev1yiOYE</div>
+          <button class="copy-btn" onclick="copyText('password')">Copy</button>
+        </div>
+      </div>
+
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("keyModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("keyModal").style.display = "none";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied!");
+      });
+    }
+
+    // Popup ke bahar click karne par close
+    document.getElementById("keyModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>
