@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Unlock Key</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -17,28 +22,32 @@
     }
 
     .unlock-btn {
-      padding: 14px 28px;
+      padding: 15px 30px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #2563eb;
       color: white;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    .unlock-btn:hover {
-      background: #1d4ed8;
+    .unlock-btn:active {
+      transform: scale(0.97);
     }
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
       justify-content: center;
       align-items: center;
       padding: 20px;
+      z-index: 999;
     }
 
     .modal-box {
@@ -47,23 +56,26 @@
       background: #1f2937;
       color: white;
       padding: 25px;
-      border-radius: 16px;
-      box-sizing: border-box;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .modal-box h2 {
-      margin-top: 0;
+      margin: 0 0 25px;
       text-align: center;
+      font-size: 25px;
     }
 
     .credential {
-      margin: 15px 0;
+      margin-bottom: 18px;
     }
 
     .credential label {
       display: block;
-      margin-bottom: 7px;
-      color: #9ca3af;
+      margin-bottom: 8px;
+      color: #d1d5db;
+      font-size: 15px;
+      font-weight: bold;
     }
 
     .copy-row {
@@ -73,32 +85,42 @@
 
     .value {
       flex: 1;
-      padding: 12px;
+      min-width: 0;
+      padding: 13px;
       background: #111827;
-      border-radius: 8px;
-      overflow: auto;
+      border-radius: 9px;
+      color: white;
+      overflow-x: auto;
       white-space: nowrap;
+      font-size: 16px;
     }
 
     .copy-btn {
       border: none;
-      border-radius: 8px;
-      padding: 0 15px;
+      border-radius: 9px;
+      padding: 0 16px;
       background: #10b981;
       color: white;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .close-btn {
       width: 100%;
-      margin-top: 15px;
-      padding: 12px;
+      margin-top: 8px;
+      padding: 13px;
       border: none;
-      border-radius: 8px;
+      border-radius: 9px;
       background: #374151;
       color: white;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
+    }
+
+    .close-btn:active,
+    .copy-btn:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
@@ -110,30 +132,45 @@
   </button>
 
   <div class="modal" id="keyModal">
+
     <div class="modal-box">
+
       <h2>🔑 Unlock Key</h2>
 
       <div class="credential">
         <label>Username</label>
+
         <div class="copy-row">
           <div class="value" id="username">AimAi-2_7EwBB</div>
-          <button class="copy-btn" onclick="copyText('username')">Copy</button>
+
+          <button class="copy-btn" onclick="copyText('username')">
+            Copy
+          </button>
         </div>
       </div>
 
       <div class="credential">
         <label>Password</label>
+
         <div class="copy-row">
           <div class="value" id="password">653JLxIz</div>
-          <button class="copy-btn" onclick="copyText('password')">Copy</button>
+
+          <button class="copy-btn" onclick="copyText('password')">
+            Copy
+          </button>
         </div>
       </div>
 
-      <button class="close-btn" onclick="closeModal()">Close</button>
+      <button class="close-btn" onclick="closeModal()">
+        Close
+      </button>
+
     </div>
+
   </div>
 
   <script>
+
     function openModal() {
       document.getElementById("keyModal").style.display = "flex";
     }
@@ -143,21 +180,24 @@
     }
 
     function copyText(id) {
+
       const text = document.getElementById(id).innerText;
 
-      navigator.clipboard.writeText(text).then(() => {
+      navigator.clipboard.writeText(text).then(function() {
         alert("Copied!");
       });
+
     }
 
-    document.getElementById("keyModal").addEventListener("click", function(e) {
-      if (e.target === this) {
+    document.getElementById("keyModal").addEventListener("click", function(event) {
+
+      if (event.target === this) {
         closeModal();
       }
+
     });
+
   </script>
 
 </body>
 </html>
-
-Isko GitHub ke "index.html" me purane code ki jagah paste karke Commit changes kar do.
