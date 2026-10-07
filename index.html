@@ -180,21 +180,19 @@
     }
 
     function copyText(id) {
-
       const text = document.getElementById(id).innerText;
 
       navigator.clipboard.writeText(text).then(function() {
         alert("Copied!");
+      }).catch(function() {
+        alert("Copy failed!");
       });
-
     }
 
     document.getElementById("keyModal").addEventListener("click", function(event) {
-
       if (event.target === this) {
         closeModal();
       }
-
     });
 
   </script>
