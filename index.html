@@ -21,7 +21,7 @@
       align-items: center;
       justify-content: center;
       font-family: Arial, sans-serif;
-      color: #ffffff;
+      color: #fff;
       background:
         radial-gradient(ellipse at top, #14264a 0%, transparent 55%),
         linear-gradient(145deg, #05070c, #0b1020 60%, #05070c);
@@ -54,7 +54,8 @@
       line-height: 1.3;
     }
 
-    .brand span {
+    .brand span,
+    .modal-box h2 span {
       color: #f4c65e;
     }
 
@@ -78,7 +79,7 @@
       padding: 26px 22px;
       border: 1px solid #263752;
       border-radius: 20px;
-      background: #0c1220eF;
+      background: #0c1220;
       box-shadow: 0 15px 50px #0008;
     }
 
@@ -90,7 +91,7 @@
     .panel p {
       color: #9caac3;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 23px;
     }
 
@@ -171,18 +172,9 @@
       font-size: 22px;
     }
 
-    .modal-box h2 span {
-      color: #f4c65e;
-    }
-
-    .credential {
-      margin-bottom: 17px;
-      text-align: left;
-    }
-
     .credential label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
       color: #a9bad4;
       font-size: 12px;
       font-weight: bold;
@@ -193,8 +185,8 @@
     .copy-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px;
+      gap: 10px;
+      padding: 12px;
       border: 1px solid #293b56;
       border-radius: 10px;
       background: #070b13;
@@ -203,26 +195,38 @@
     .value {
       min-width: 0;
       flex: 1;
-      padding-left: 5px;
       overflow-wrap: anywhere;
+      white-space: pre-line;
       color: #f4c65e;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
+      line-height: 2;
     }
 
     .copy-btn {
-      padding: 10px 13px;
+      flex-shrink: 0;
+      padding: 11px 13px;
       border: none;
       border-radius: 7px;
       background: #1677ff;
       color: white;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
     }
 
+    .toast {
+      display: none;
+      margin-top: 14px;
+      color: #63e6a2;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
     .close-btn {
       width: 100%;
-      margin-top: 8px;
+      margin-top: 20px;
       padding: 13px;
       border: 1px solid #344155;
       border-radius: 9px;
@@ -233,11 +237,27 @@
       cursor: pointer;
     }
 
-    .toast {
-      display: none;
-      margin-top: 14px;
-      color: #63e6a2;
-      font-size: 13px;
+    @media (max-width: 350px) {
+      .brand {
+        font-size: 25px;
+      }
+
+      .modal-box {
+        padding: 22px 14px;
+      }
+
+      .copy-row {
+        gap: 6px;
+        padding: 9px;
+      }
+
+      .copy-btn {
+        padding: 10px 9px;
+      }
+
+      .value {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -259,7 +279,7 @@
 
       <p>
         Welcome to THE EAGLE⁰⁹.<br>
-        Open the secure key panel to view your credentials.
+        Open the key panel to view your credentials.
       </p>
 
       <button class="unlock-btn" onclick="openModal()">
@@ -277,36 +297,28 @@
 
   </main>
 
-  <div class="modal" id="keyModal" role="dialog"
-       aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="keyModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="modalTitle">
 
     <div class="modal-box">
 
       <h2 id="modalTitle">🔑 <span>UNLOCK KEY</span></h2>
 
       <div class="credential">
-        <label for="username">Username</label>
+
+        <label>Username &amp; Password</label>
 
         <div class="copy-row">
-          <div class="value" id="username">AimAi-2_Y45Wk</div>
 
-          <button class="copy-btn"
-                  onclick="copyText('username')">
-            Copy
+          <div class="value" id="credentials">Username : AimAi-2_3R4jo
+Password : AUWeXAOM</div>
+
+          <button class="copy-btn" onclick="copyCredentials()">
+            📋 Copy
           </button>
-        </div>
-      </div>
 
-      <div class="credential">
-        <label for="password">Password</label>
-
-        <div class="copy-row">
-          <div class="value" id="password">iEJt5AgT</div>
-
-          <button class="copy-btn"
-                  onclick="copyText('password')">
-            Copy
-          </button>
         </div>
       </div>
 
@@ -317,6 +329,7 @@
       </button>
 
     </div>
+
   </div>
 
   <script>
@@ -325,6 +338,7 @@
 
     function openModal() {
       modal.style.display = "flex";
+      toast.style.display = "none";
     }
 
     function closeModal() {
@@ -337,38 +351,47 @@
       toast.style.display = "block";
     }
 
-    async function copyText(id) {
-      const value = document.getElementById(id).innerText;
+    async function copyCredentials() {
+      const text = document
+        .getElementById("credentials")
+        .innerText.trim();
 
       try {
         if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(value);
+          await navigator.clipboard.writeText(text);
         } else {
           const area = document.createElement("textarea");
-          area.value = value;
+          area.value = text;
           area.style.position = "fixed";
-          area.style.opacity = "0";
+          area.style.left = "-9999px";
+
           document.body.appendChild(area);
           area.select();
 
           const copied = document.execCommand("copy");
           area.remove();
 
-          if (!copied) throw new Error("Copy failed");
+          if (!copied) {
+            throw new Error("Copy failed");
+          }
         }
 
-        showToast("✓ " + id + " copied successfully!");
+        showToast("✓ Username & Password copied successfully!");
       } catch (error) {
-        showToast("Copy failed. Please select and copy manually.");
+        showToast("Copy failed. Please copy manually.");
       }
     }
 
     modal.addEventListener("click", function(event) {
-      if (event.target === modal) closeModal();
+      if (event.target === modal) {
+        closeModal();
+      }
     });
 
     document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") closeModal();
+      if (event.key === "Escape") {
+        closeModal();
+      }
     });
   </script>
 
