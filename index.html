@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080b14">
-
   <title>THE EAGLE⁰⁹ | Unlock Key</title>
 
   <style>
@@ -185,8 +185,8 @@
     .copy-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px;
+      gap: 8px;
+      padding: 10px;
       border: 1px solid #293b56;
       border-radius: 10px;
       background: #070b13;
@@ -196,16 +196,16 @@
       min-width: 0;
       flex: 1;
       overflow-wrap: anywhere;
-      white-space: pre-line;
       color: #f4c65e;
       font-size: 13px;
       font-weight: bold;
-      line-height: 2;
+      line-height: 1.6;
+      text-align: left;
     }
 
     .copy-btn {
       flex-shrink: 0;
-      padding: 11px 13px;
+      padding: 11px 12px;
       border: none;
       border-radius: 7px;
       background: #1677ff;
@@ -213,6 +213,35 @@
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .detail-card {
+      padding: 13px 8px;
+      border: 1px solid #293b56;
+      border-radius: 10px;
+      background: #0a101c;
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 7px;
+      color: #9caac3;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .detail-value {
+      color: #63e6a2;
+      font-size: 15px;
+      font-weight: bold;
     }
 
     .toast {
@@ -248,30 +277,27 @@
 
       .copy-row {
         gap: 6px;
-        padding: 9px;
+        padding: 8px;
       }
 
       .copy-btn {
-        padding: 10px 9px;
+        padding: 10px 8px;
+        font-size: 12px;
       }
 
       .value {
-        font-size: 12px;
+        font-size: 11px;
       }
     }
   </style>
 </head>
 
 <body>
-
   <main class="container">
-
     <div class="logo">🦅</div>
 
     <h1 class="brand">THE EAGLE<span>⁰⁹</span></h1>
-
     <p class="tagline">Official Key Center</p>
-
     <div class="line"></div>
 
     <section class="panel">
@@ -279,7 +305,7 @@
 
       <p>
         Welcome to THE EAGLE⁰⁹.<br>
-        Open the key panel to view your credentials.
+        Open the key panel to view your access key.
       </p>
 
       <button class="unlock-btn" onclick="openModal()">
@@ -294,7 +320,6 @@
     <footer class="footer">
       POWERED BY THE EAGLE⁰⁹
     </footer>
-
   </main>
 
   <div class="modal" id="keyModal"
@@ -303,33 +328,41 @@
        aria-labelledby="modalTitle">
 
     <div class="modal-box">
-
-      <h2 id="modalTitle">🔑 <span>UNLOCK KEY</span></h2>
+      <h2 id="modalTitle">🔑 <span>YOUR ACCESS KEY</span></h2>
 
       <div class="credential">
-
-        <label>Username &amp; Password</label>
+        <label for="keyValue">Your Key</label>
 
         <div class="copy-row">
+          <div class="value" id="keyValue">
+            AIMAI-1D-324-FREE-657
+          </div>
 
-          <div class="value" id="credentials">Username : AimAi-2_3R4jo
-Password : AUWeXAOM</div>
-
-          <button class="copy-btn" onclick="copyCredentials()">
+          <button class="copy-btn" onclick="copyKey()">
             📋 Copy
           </button>
-
         </div>
       </div>
 
-      <div class="toast" id="toast" role="status"></div>
+      <div class="details">
+        <div class="detail-card">
+          <span class="detail-label">Device</span>
+          <span class="detail-value">1</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="detail-label">Validity</span>
+          <span class="detail-value">1 Day</span>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status"
+           aria-live="polite"></div>
 
       <button class="close-btn" onclick="closeModal()">
         ✕ &nbsp; Close Panel
       </button>
-
     </div>
-
   </div>
 
   <script>
@@ -351,10 +384,10 @@ Password : AUWeXAOM</div>
       toast.style.display = "block";
     }
 
-    async function copyCredentials() {
+    async function copyKey() {
       const text = document
-        .getElementById("credentials")
-        .innerText.trim();
+        .getElementById("keyValue")
+        .textContent.trim();
 
       try {
         if (navigator.clipboard && window.isSecureContext) {
@@ -376,9 +409,9 @@ Password : AUWeXAOM</div>
           }
         }
 
-        showToast("✓ Username & Password copied successfully!");
+        showToast("✓ Key copied successfully!");
       } catch (error) {
-        showToast("Copy failed. Please copy manually.");
+        showToast("Copy failed. Please copy the key manually.");
       }
     }
 
@@ -394,6 +427,5 @@ Password : AUWeXAOM</div>
       }
     });
   </script>
-
 </body>
 </html>
